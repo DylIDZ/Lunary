@@ -224,7 +224,7 @@ local PerformanceOptimizer = {
 function PerformanceOptimizer:OptimizeTween(Instance, TweenInfo, Properties)
 	if #self.TweenConnections >= self.MaxActiveTweens then
 		local oldTween = table.remove(self.TweenConnections, 1)
-		if oldTween and oldTween.Playing then
+		if oldTween and oldTween.PlaybackState == Enum.PlaybackState.Playing then
 			oldTween:Cancel()
 		end
 	end
@@ -4777,7 +4777,6 @@ function Luna:CreateWindow(WindowSettings)
 					ButtonV.Hover = true
 					tween(Button.UIStroke, {Color = Luna.Colors.Primary, Transparency = 0})
 					tween(Button, {BackgroundColor3 = Luna.Colors.Surface})
-					tween(Button.Parent.ShadowHolder or Button, {Shadow = true}, nil, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out))
 				end)
 
 				Button["MouseLeave"]:Connect(function()
